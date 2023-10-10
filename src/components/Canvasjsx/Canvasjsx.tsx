@@ -1,12 +1,31 @@
-import React, { FC } from 'react';
-import styles from './Canvasjsx.module.scss';
+import React, { FC, RefObject, useEffect, useRef } from "react";
+import styles from "./Canvasjsx.module.scss";
 
 interface CanvasjsxProps {}
 
-const Canvasjsx: FC<CanvasjsxProps> = () => (
-  <div className={styles.Canvasjsx} data-testid="Canvasjsx">
-    Canvasjsx Component
-  </div>
-);
+const Canvasjsx = () => {
+  const canvasRef: RefObject<HTMLCanvasElement> = useRef(null);
+
+  function draw() {
+    const { devicePixelRatio: ratio = 1} = window
+    const canvas = canvasRef.current
+    const context = canvas?.getContext("2d");
+    if (context) {
+      context.fillStyle = "tomato";
+      context.fillRect(0, 0, context.canvas.width, context.canvas.height);
+      context.scale(ratio, ratio)
+    }
+  }
+
+  useEffect(() => {
+    draw();
+  });
+
+  return (
+    <>
+      <canvas ref={canvasRef} />
+    </>
+  );
+};
 
 export default Canvasjsx;
