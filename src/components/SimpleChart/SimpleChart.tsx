@@ -1,4 +1,5 @@
-import React, { FC, RefObject } from "react";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import React from "react";
 import styles from "./SimpleChart.module.scss";
 import * as d3 from "d3";
 
@@ -12,18 +13,15 @@ export default class SimpleChar extends React.PureComponent<
 > {
   ref: React.RefObject<HTMLDivElement>;
   data: number[];
-
+  conter: number | undefined
   constructor(props: ISimpleChartProps) {
     super(props);
+    this.conter = 0
     this.ref = React.createRef();
     this.data = [100, 200, 300, 400, 500];
   }
 
   drawChart() {
-    
-  }
-
-  componentDidMount() {
     const size = 500;
     const svg = d3
       .select(this.ref.current)
@@ -42,10 +40,14 @@ export default class SimpleChar extends React.PureComponent<
       .attr("width", rectWidth)
       .attr("height", (data) => data)
       .attr("fill", "tomato");    console.log("renders");
+  }
+
+  componentDidMount() {
     
+    this.drawChart()
   }
 
   render(): React.ReactNode {
-    return <div className="simple-chart" ref={this.ref} />;
+    return <div className="simple-chart" ref={this.ref} >{}</div>;
   }
 }
